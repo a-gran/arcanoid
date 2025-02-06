@@ -60,7 +60,7 @@ class Picture(Area):
 
 # Параметры для объектов на экране
 platform_x = 200  # Начальная координата X платформы
-platform_y = 500  # Начальная координата Y платформы
+platform_y = 400  # Начальная координата Y платформы
 monster_x = 25  # Начальная координата X для монстров
 monster_y = 25  # Начальная координата Y для монстров
 count = 9  # Количество монстров в первой линии
@@ -101,61 +101,61 @@ while not game_over:
             pygame.quit()  # Закрываем pygame
 
         # Обработка нажатий клавиш
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:  # Если нажата стрелка вправо
-                move_right = True
-            if event.key == pygame.K_LEFT:  # Если нажата стрелка влево
-                move_left = True
-        elif event.type == pygame.KEYUP:  # Если отпущены клавиши
-            if event.key == pygame.K_RIGHT:
-                move_right = False
-            if event.key == pygame.K_LEFT:
-                move_left = False
+    #     if event.type == pygame.KEYDOWN:
+    #         if event.key == pygame.K_RIGHT:  # Если нажата стрелка вправо
+    #             move_right = True
+    #         if event.key == pygame.K_LEFT:  # Если нажата стрелка влево
+    #             move_left = True
+    #     elif event.type == pygame.KEYUP:  # Если отпущены клавиши
+    #         if event.key == pygame.K_RIGHT:
+    #             move_right = False
+    #         if event.key == pygame.K_LEFT:
+    #             move_left = False
 
-    # Движение платформы
-    if move_right:
-        platform.rect.x += speed  # Двигаем платформу вправо
-        if platform.rect.x > 400:  # Ограничиваем движение справа
-            platform.rect.x = 400
-    if move_left:
-        platform.rect.x -= speed  # Двигаем платформу влево
-        if platform.rect.x < 0:  # Ограничиваем движение слева
-            platform.rect.x = 0
+    # # Движение платформы
+    # if move_right:
+    #     platform.rect.x += speed  # Двигаем платформу вправо
+    #     if platform.rect.x > 400:  # Ограничиваем движение справа
+    #         platform.rect.x = 400
+    # if move_left:
+    #     platform.rect.x -= speed  # Двигаем платформу влево
+    #     if platform.rect.x < 0:  # Ограничиваем движение слева
+    #         platform.rect.x = 0
 
-    # Движение мяча
-    ball.rect.x += dx  # Двигаем мяч по X
-    ball.rect.y += dy  # Двигаем мяч по Y
+    # # Движение мяча
+    # ball.rect.x += dx  # Двигаем мяч по X
+    # ball.rect.y += dy  # Двигаем мяч по Y
     
-    # Обработка столкновений мяча с границами экрана
-    if ball.rect.y < 0:  # Если мяч коснулся верхней границы
-        dy *= -1  # Меняем направление по Y
-    if ball.rect.x > 450 or ball.rect.x < 0:  # Если мяч коснулся боковых границ
-        dx *= -1  # Меняем направление по X
+    # # Обработка столкновений мяча с границами экрана
+    # if ball.rect.y < 0:  # Если мяч коснулся верхней границы
+    #     dy *= -1  # Меняем направление по Y
+    # if ball.rect.x > 450 or ball.rect.x < 0:  # Если мяч коснулся боковых границ
+    #     dx *= -1  # Меняем направление по X
     
-    # Проверка на проигрыш
-    if ball.rect.y > 520:  # Если мяч коснулся нижней границы
-        time_text = Label(150, 200, 50, 50, back)  # Создаем надпись "YOU LOSE"
-        time_text.set_text('YOU LOSE', 60, (255, 0, 0))
-        time_text.draw(10, 10)  # Отображаем надпись
-        game_over = True  # Завершаем игру
+    # # Проверка на проигрыш
+    # if ball.rect.y > 520:  # Если мяч коснулся нижней границы
+    #     time_text = Label(150, 200, 50, 50, back)  # Создаем надпись "YOU LOSE"
+    #     time_text.set_text('YOU LOSE', 60, (255, 0, 0))
+    #     time_text.draw(10, 10)  # Отображаем надпись
+    #     game_over = True  # Завершаем игру
     
-    # Проверка на выигрыш
-    if len(monsters) == 0:  # Если все монстры уничтожены
-        time_text = Label(150, 200, 50, 50, back)  # Создаем надпись "YOU WIN"
-        time_text.set_text('YOU WIN', 60, (0, 200, 0))
-        time_text.draw(10, 10)  # Отображаем надпись
-        game_over = True  # Завершаем игру
+    # # Проверка на выигрыш
+    # if len(monsters) == 0:  # Если все монстры уничтожены
+    #     time_text = Label(150, 200, 50, 50, back)  # Создаем надпись "YOU WIN"
+    #     time_text.set_text('YOU WIN', 60, (0, 200, 0))
+    #     time_text.draw(10, 10)  # Отображаем надпись
+    #     game_over = True  # Завершаем игру
 
-    # Обработка столкновения мяча с платформой
-    if ball.rect.colliderect(platform.rect):  # Если мяч касается платформы
-        dy *= -1  # Меняем направление по Y
+    # # Обработка столкновения мяча с платформой
+    # if ball.rect.colliderect(platform.rect):  # Если мяч касается платформы
+    #     dy *= -1  # Меняем направление по Y
     
     # Отрисовка всех монстров
-    for m in monsters:
-        m.draw()  # Рисуем монстра
-        if m.rect.colliderect(ball.rect):  # Если мяч столкнулся с монстром
+    for monster in monsters:
+        monster.draw()  # Рисуем монстра
+        if monster.rect.colliderect(ball.rect):  # Если мяч столкнулся с монстром
             monsters.remove(m)  # Удаляем монстра из списка
-            m.fill()  # Стираем его изображение
+            monster.fill()  # Стираем его изображение
             dy *= -1  # Меняем направление мяча по Y
 
     # Отрисовка платформы и мяча
